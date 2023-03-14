@@ -12,21 +12,25 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
     private ProjectRepositoryInterface $projectRepository;
+    private $response;
     
     public function __construct(ProjectRepositoryInterface $projectRepository)
     {
         $this->projectRepository = $projectRepository;
+        $this->response = [];
     }
     public function index()
     {
-        return (new ProjectsService($this->projectRepository))->getAllProjects();
+       $allProjects = (new ProjectsService($this->projectRepository))->getAllProjects();
+       $this->response['message'] = 'Projects';
+       $this->response['projects'] = $allProjects;
+       return (new ResponsesService)->renderResponse($this->response, 200);
     }
 
     public function store(Request $request)
     {
         try {
             DB::beginTransaction();
-            $response = [];
             $name = $request->name;
             $newProjectData = [
                 'id' => Str::uuid()->toString(),
@@ -36,13 +40,13 @@ class ProjectsController extends Controller
             ];
             (new ProjectsService($this->projectRepository))->createProject($newProjectData);
             DB::commit();
-            $response['message'] = 'New project created successfully';
-            $response['createdProject'] = $newProjectData;
-            return (new ResponsesService)->renderResponse($response, 200);
+            $this->response['message'] = 'New project created successfully';
+            $this->response['createdProject'] = $newProjectData;
+            return (new ResponsesService)->renderResponse($this->response, 200);
        } catch (\Throwable $th) {
             DB::rollBack();
-            $response['message'] = 'an error occured.. please try again';
-            return (new ResponsesService)->renderResponse($response, 500);
+            $this->response['message'] = 'an error occured.. please try again';
+            return (new ResponsesService)->renderResponse($this->response, 500);
        }
     }
 }

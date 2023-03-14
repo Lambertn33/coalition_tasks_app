@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('projects')->controller(ProjectsController::class)->group(function() {
     Route::get('/', 'index');
     Route::post('/', 'store');
+});
+Route::prefix('tasks')->controller(TasksController::class)->group(function() {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::prefix('{taskId}')->group(function() {
+        Route::get('/', 'show');
+        Route::put('/', 'update');
+        Route::delete('/', 'destroy');
+    });
 });
