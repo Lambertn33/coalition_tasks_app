@@ -27,7 +27,7 @@
           },
           {
             name: 'Tasks List',
-            href: "/projects/create",
+            href: "/tasks/index",
           },
         ],
       }

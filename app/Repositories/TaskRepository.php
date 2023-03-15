@@ -7,7 +7,7 @@
   {
     public function getAllTasks()
     {
-      return Task::with('project')->get();
+      return Task::with('project')->orderby('priority', 'asc')->get();
     }
 
     public function getHighTaskPriority()

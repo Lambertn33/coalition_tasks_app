@@ -45,7 +45,6 @@ class ProjectsController extends Controller
             $this->response['createdProject'] = $newProjectData;
             return (new ResponsesService)->renderResponse($this->response, 200);
        } catch (\Throwable $th) {
-            throw $th;
             DB::rollBack();
             $this->response['message'] = 'an error occured.. please try again';
             return (new ResponsesService)->renderResponse($this->response, 500);

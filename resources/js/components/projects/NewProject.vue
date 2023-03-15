@@ -97,10 +97,10 @@
           this.newProjectData.name = '';
           this.newProjectData.description = '';
           this.$swal({title: 'Success',text: successMessage, type: 'success'}).then(okay => {
-          if( okay) {
-            this.$router.push('/projects/index');
-          }
-        });
+            if( okay) {
+              this.$router.push('/projects/index');
+            }
+          });
           //END
           this.isSubmitting = false;
         }
