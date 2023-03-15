@@ -17,11 +17,6 @@ use App\Interfaces\ProjectRepositoryInterface;
       return $this->projectRepository->getAllProjects();
     }
 
-    public function getSingleProject($id)
-    {
-      return $this->projectRepository->getSingleProject($id);
-    }
-
     public function createProject($data)
     {
       return $this->projectRepository->createProject($data);

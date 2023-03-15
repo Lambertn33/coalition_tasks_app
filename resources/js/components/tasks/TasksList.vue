@@ -7,11 +7,11 @@
       <div class="row">
         <h2 class="text-center py-4"><b>Tasks List</b></h2>
         <div class="row table-filters">
-          <div class="col-md-6">
+          <div class="col-md-9">
             <span class="text-danger pb-4"><b>N.B: Drag Table columns to update task priority</b></span>
           </div>
-          <div class="col-md-6">
-            <label for="">Filter by</label>
+          <div class="col-md-3">
+            <label for=""><b>Filter by project:</b> </label>
             <select class="form-select" v-on:change="filterTasks($event)">
             <option selected value="">All</option>
             <option v-for="project in $store.getters.getProjects" :key="project.id" :value="project.id">{{ project.name }}</option>

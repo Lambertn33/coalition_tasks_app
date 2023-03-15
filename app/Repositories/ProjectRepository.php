@@ -7,12 +7,7 @@
   {
     public function getAllProjects()
     {
-      return Project::select(['id', 'name', 'description'])->get();      
-    }
-
-    public function getSingleProject($projectId)
-    {
-      return Project::with('tasks')->find($projectId);
+      return Project::with('tasks')->get();      
     }
 
     public function createProject($newProjectData)
