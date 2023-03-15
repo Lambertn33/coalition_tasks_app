@@ -81,10 +81,10 @@
         if (this.v$.$error) {
           this.hasValidationsError = true;
           if (this.v$.newProjectData.name.$errors.length) {
-            this.validationErrors.name = this.v$.newProjectData.name.$errors[0].$message;
+            this.validationErrors.name = 'the project name is required';
           }
           if (this.v$.newProjectData.description.$errors.length) {
-            this.validationErrors.description = this.v$.newProjectData.description.$errors[0].$message;
+            this.validationErrors.description = 'the project description is required';
           }
         } else {
           this.$isSubmitting = true;

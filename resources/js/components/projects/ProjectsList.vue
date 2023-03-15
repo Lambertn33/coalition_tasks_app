@@ -6,11 +6,11 @@
       <router-view />
       <div class="row">
         <h2 class="text-center py-4"><b>Projects List</b></h2>
-        <div v-if="projects.length">
+        <template v-if="projects.length">
           <div class="col-md-3" v-for="project in projects" :key="project.id">
             <project-details :project="project" />
           </div>
-        </div>
+        </template>
         <h6 v-else class="text-center text-danger"><b>No Projects available now</b></h6>
       </div>
     </div>
@@ -31,7 +31,8 @@ export default {
     async fetchProjects() {
       this.isFetching = true;
       const response = await this.$store.dispatch('fetchAllProjects');
-      const { projects } = response.data;
+      const { projects } = response;
+      this.$store.commit('setProjects', projects);
       this.projects = projects;
       this.isFetching = false;
     }

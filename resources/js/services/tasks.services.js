@@ -13,13 +13,13 @@ class TasksServices {
     return axios.delete(`${endpointUrl}/tasks/${taskId}`);
   }
 
-  // createNewProject(newProject) {
-  //   const newProjectObject = {
-  //     name: newProject.name,
-  //     description: newProject.description
-  //   }
-  //   return axios.post(`${endpointUrl}/projects`, newProjectObject);
-  // }
+  createNewTask(newTask) {
+    const newTaskObject = {
+      name: newTask.name,
+      project: newTask.project
+    }
+    return axios.post(`${endpointUrl}/tasks`, newTaskObject);
+  }
 }
 
 export default new TasksServices;

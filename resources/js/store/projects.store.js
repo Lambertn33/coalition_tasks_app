@@ -9,9 +9,7 @@ export const projectsStore = {
     fetchAllProjects({ commit }) {
       return projectsServices.getAllProjects().then(
         response => {
-          const { projects } = response.data;
-          commit('setProjects', [projects]);
-          return Promise.resolve(response);
+          return Promise.resolve(response.data);
         },
         error => {
           return Promise.reject(error);

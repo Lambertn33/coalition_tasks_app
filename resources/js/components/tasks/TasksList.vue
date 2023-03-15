@@ -51,7 +51,8 @@
       async fetchTasks() {
         this.isFetching = true;
         const response = await this.$store.dispatch('fetchAllTasks');
-        const { tasks } = response.data;
+        const { tasks } = response;
+        this.$store.commit('setTasks', tasks);
         this.tasks = tasks;
         this.isFetching = false;
       },

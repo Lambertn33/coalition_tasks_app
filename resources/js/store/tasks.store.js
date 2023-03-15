@@ -9,14 +9,23 @@ export const tasksStore = {
     fetchAllTasks({ commit }) {
       return tasksServices.getAllTasks().then(
         response => {
-          const { tasks } = response.data;
-          commit('setProjects', [tasks]);
-          return Promise.resolve(response);
+          return Promise.resolve(response.data);
         },
         error => {
           return Promise.reject(error);
         }
       );
+    },
+
+    createNewTask({ commit }, newTask) {
+      return tasksServices.createNewTask(newTask).then(
+        response => {
+          return Promise.resolve(response);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
     },
     
     deleteTask({commit}, taskId) {
