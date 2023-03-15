@@ -31,12 +31,11 @@ class ProjectsController extends Controller
     {
         try {
             DB::beginTransaction();
-            $name = $request->name;
-            $description = $request->description;
+            $data = $request->all();
             $newProjectData = [
                 'id' => Str::uuid()->toString(),
-                'name' => $name,
-                'description' => $description,
+                'name' => $data['name'],
+                'description' => $data['description'],
                 'created_at' => now(),
                 'updated_at' => now()
             ];
@@ -46,6 +45,7 @@ class ProjectsController extends Controller
             $this->response['createdProject'] = $newProjectData;
             return (new ResponsesService)->renderResponse($this->response, 200);
        } catch (\Throwable $th) {
+            throw $th;
             DB::rollBack();
             $this->response['message'] = 'an error occured.. please try again';
             return (new ResponsesService)->renderResponse($this->response, 500);

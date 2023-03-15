@@ -2,6 +2,8 @@ import './bootstrap';
 
 import { createApp } from 'vue';
 
+import VueSweetalert2 from 'vue-sweetalert2'
+
 import App from './components/App.vue';
 
 import TheNavbar from './components/reusable/nav/TheNavbar.vue';
@@ -18,6 +20,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import 'bootstrap/dist/js/bootstrap.bundle';
 
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 const app = createApp(App);
 
 app.component('the-navbar', TheNavbar);
@@ -29,5 +33,7 @@ app.component('the-spinner', TheSpinner);
 app.use(router);
 
 app.use(store);
+
+app.use(VueSweetalert2);
 
 app.mount('#app');

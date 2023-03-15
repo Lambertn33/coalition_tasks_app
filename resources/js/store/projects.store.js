@@ -17,12 +17,27 @@ export const projectsStore = {
           return Promise.reject(error);
         }
       );
+    },
+
+    createNewProject({ commit }, newProject) {
+      return projectsServices.createNewProject(newProject).then(
+        response => {
+          commit('addProject', newProject);
+          return Promise.resolve(response);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
     }
   },
 
   mutations: {
     setProjects(state, projects) {
       state.allProjects = projects;
+    },
+    addProject(state, newProject) {
+      state.allProjects.push(newProject);
     }
   },
 

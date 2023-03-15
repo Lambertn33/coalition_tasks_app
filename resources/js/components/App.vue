@@ -12,6 +12,7 @@
 .main {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
+  background-color: #f2f2f2;
   height: 100vh;
 }
 </style>

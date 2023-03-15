@@ -6,9 +6,12 @@
       <router-view />
       <div class="row">
         <h2 class="text-center py-4"><b>Projects List</b></h2>
-        <div class="col-md-4" v-for="project in projects" :key="project.id">
-          <project-details :project="project" />
+        <div v-if="projects.length">
+          <div class="col-md-3" v-for="project in projects" :key="project.id">
+            <project-details :project="project" />
+          </div>
         </div>
+        <h6 v-else class="text-center text-danger"><b>No Projects available now</b></h6>
       </div>
     </div>
   </div>
