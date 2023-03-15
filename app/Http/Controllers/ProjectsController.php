@@ -32,9 +32,11 @@ class ProjectsController extends Controller
         try {
             DB::beginTransaction();
             $name = $request->name;
+            $description = $request->description;
             $newProjectData = [
                 'id' => Str::uuid()->toString(),
                 'name' => $name,
+                'description' => $description,
                 'created_at' => now(),
                 'updated_at' => now()
             ];

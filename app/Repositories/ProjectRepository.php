@@ -7,7 +7,7 @@
   {
     public function getAllProjects()
     {
-      return Project::all();      
+      return Project::select(['id', 'name', 'description'])->get();      
     }
 
     public function getSingleProject($projectId)

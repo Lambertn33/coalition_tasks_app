@@ -1,13 +1,33 @@
 import './bootstrap';
 
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
-import App from './components/App.vue'
+import App from './components/App.vue';
+
+import TheNavbar from './components/reusable/nav/TheNavbar.vue';
+
+import TheHeader from './components/reusable/TheHeader.vue';
+
+import TheSpinner from './components/reusable/TheSpinner.vue';
+
+import router from './router';
+
+import store from './store';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import 'bootstrap/dist/js/bootstrap.bundle';
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.mount('#app')
+app.component('the-navbar', TheNavbar);
+
+app.component('the-header', TheHeader);
+
+app.component('the-spinner', TheSpinner);
+
+app.use(router);
+
+app.use(store);
+
+app.mount('#app');
