@@ -4,19 +4,20 @@
        <div class="row">
          <h2 class="text-center py-4"><b>Edit Task</b></h2>
          <div class="col-md-10 offset-md-1">
-          <form>
-
+          <form v-on:submit.prevent="this.$emit('updateTask', this.task.id, this.updatedTask )">
             <div class="mb-3">
               <label class="form-label">Task name</label>
               <input
                 class="form-control" 
                 type="text"
-                :value="task.name"
+                v-model="updatedTask.name"
               >
             </div>
             <div class="mb-3">
               <label class="form-label">Task Project</label>
-              <select class="form-select">
+              <select class="form-select"
+                v-model="updatedTask.project"
+              >
                 <option
                   v-for="project in allProjects"
                   :key="project.id"
@@ -41,19 +42,27 @@
     data() {
       return {
         allProjects: [],
+        updatedTask: {
+          name: this.task.name,
+          project: this.task.project_id
+        }
       }
     },
     props: {
       task: Object
     },
-    emits: ['onClose'],
+    emits: ['onClose', 'updateTask'],
+    methods: {
+      updatedTask() {
+        this.$emit('updateTask', [ this.task.id, this.updatedTask ]);
+      }
+    },
     computed: {
       getCurrentProject() {
         return projectId => this.task.project_id == projectId ? true : false;
       }
     },
     mounted() {
-      console.log('kekeke', this.$store.getters.getProjects)
       this.allProjects = this.$store.getters.getProjects
     }
   }

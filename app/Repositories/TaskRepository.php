@@ -44,7 +44,8 @@
     public function updateTaskByField($taskId, $updatedTask)
     {
       return Task::find($taskId)->update([
-        'name' => $updatedTask['name']
+        'name' => $updatedTask['name'],
+        'project_id' => $updatedTask['project']
       ]);
     }    
   }

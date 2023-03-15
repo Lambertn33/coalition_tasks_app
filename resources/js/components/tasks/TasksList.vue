@@ -67,7 +67,8 @@
              task: task
             },
             contentEmits: {
-              onClose: this.closeModal
+              onClose: this.closeModal,
+              updateTask: this.updateTask
             },
             center: true,
             backgroundScrolling: true,
@@ -83,6 +84,20 @@
         const response = await this.$store.dispatch('fetchSingleTask', taskId);
         const { task } = await response;
         this.openModal(task);
+      },
+
+      async updateTask(taskId, updatedTask) {
+        const response = await this.$store.dispatch('updateTask', {
+          'taskId': taskId, 
+          'updatedTaskObject': updatedTask
+        });
+        const { message: successMessage } = response.data;
+        this.closeModal();
+        this.$swal({title: 'Success',text: successMessage, type: 'success'}).then(okay => {
+          if( okay) {
+            window.location.reload();
+          }
+        });
       },
 
       async deleteTask(taskId) {
@@ -102,7 +117,7 @@
 
 <style>
   .table {
-    border: 1px solid gainsboro;
+    border: 0.0625rem solid gainsboro;
   }
   .table td.td-actions {
     display: flex;

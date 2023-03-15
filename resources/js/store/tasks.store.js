@@ -38,8 +38,19 @@ export const tasksStore = {
         }
       )
     },
+
+    updateTask({ commit }, { taskId, updatedTaskObject }) {
+      return tasksServices.updateTask(taskId, updatedTaskObject).then(
+        response => {
+          return Promise.resolve(response);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
+    },
     
-    deleteTask({commit}, taskId) {
+    deleteTask({ commit }, taskId) {
       return tasksServices.deleteTask(taskId).then(
         response => {
           return Promise.resolve(response.data);

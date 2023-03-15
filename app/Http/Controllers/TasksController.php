@@ -69,7 +69,7 @@ class TasksController extends Controller
     {
         try {
             $data = $request->all();
-            $updatedTask = (new TasksService($this->taskRepository))->updateTaskByField($taskId, $data);
+            (new TasksService($this->taskRepository))->updateTaskByField($taskId, $data);
             $this->response['message'] = 'Task updated successfully';
             $this->response['task'] = (new TasksService($this->taskRepository))->showTask($taskId);
             return (new ResponsesService)->renderResponse($this->response, 200);

@@ -13,6 +13,14 @@ class TasksServices {
     return axios.get(`${endpointUrl}/tasks/${taskId}`);
   }
 
+  updateTask(taskId, updatedTask) {
+    const updatedTaskObject = {
+      name: updatedTask.name,
+      project: updatedTask.project
+    }
+    return axios.put(`${endpointUrl}/tasks/${taskId}`, updatedTaskObject);
+  }
+
   deleteTask(taskId) {
     return axios.delete(`${endpointUrl}/tasks/${taskId}`);
   }
