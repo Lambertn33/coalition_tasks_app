@@ -3,7 +3,7 @@
      <div class="col-md-12">
        <the-header linkType="Tasks" />
        <router-view />
-       <div class="row">
+       <div class="row" v-if="allProjects.length">
          <h2 class="text-center py-4"><b>Create new task</b></h2>
          <div class="col-md-6 offset-md-3">
           <form v-on:submit.prevent="createNewTask">
@@ -35,6 +35,7 @@
           </form>
         </div>
        </div>
+       <span class="text-danger pb-4 text-center" v-else><b>N.B: Create at least one project to proceed</b></span>
      </div>
   </div>
  </template>
