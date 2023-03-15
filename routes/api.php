@@ -24,7 +24,8 @@ Route::prefix('tasks')->controller(TasksController::class)->group(function() {
     Route::post('/', 'store');
     Route::prefix('{taskId}')->group(function() {
         Route::get('/', 'show');
-        Route::put('/', 'update');
+        Route::put('/updateByFields', 'updateByFields');
+        Route::put('/updatePrioritiesByDragAndDrop', 'updatePrioritiesByDragAndDrop');
         Route::delete('/', 'destroy');
     });
 });

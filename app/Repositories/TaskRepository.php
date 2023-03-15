@@ -47,6 +47,32 @@
         'name' => $updatedTask['name'],
         'project_id' => $updatedTask['project']
       ]);
-    }    
+    } 
+    
+    public function updateTaskByDragAndDrop($taskId, $oldPriority, $newPriority)
+    {
+      if ($oldPriority < $newPriority) {
+        $allTasksToUpdate = Task::where('priority', '>=', $oldPriority)
+        ->where('priority','<=', $newPriority)
+        ->where('id', '!=', $taskId)->get();
+        foreach ($allTasksToUpdate as $task) {
+          $task->update([
+            'priority' => $task->priority - 1
+          ]);
+        }
+      } else {
+        $allTasksToUpdate = Task::where('priority', '<=', $oldPriority)
+        ->where('priority','>=', $newPriority)
+        ->where('id', '!=', $taskId)->get();
+        foreach ($allTasksToUpdate as $task) {
+          $task->update([
+            'priority' => $task->priority + 1
+          ]);
+        }
+      }
+      Task::find($taskId)->update([
+        'priority' => $newPriority
+      ]);
+    }
   }
 ?>

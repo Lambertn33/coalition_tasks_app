@@ -6,6 +6,7 @@
       <router-view />
       <div class="row">
         <h2 class="text-center py-4"><b>Tasks List</b></h2>
+        <span class="text-danger pb-4"><b>N.B: Drag Table columns to update task priority</b></span>
         <table class="table table-striped" v-if="tasks.length">
           <thead>
             <tr>
@@ -15,17 +16,19 @@
               <th scope="col">ACTION</th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="task in tasks" :key="task.id">
-              <td>{{ task.name }}</td>
-              <td>{{task.project.name  }}</td>
-              <td>{{ task.priority }}</td>
-              <td class="td-actions">
-                <edit-icon @click="editTask(task.id)"/>
-                <delete-icon @click="deleteTask(task.id)"/>
-              </td>
-            </tr>
-          </tbody>
+            <draggable tag="tbody" @end="updateByPriority" v-model="tasks" item-key="id">
+              <template #item="{ element}">
+                <tr>
+                  <td>{{ element.name }}</td>
+                  <td>{{element.project.name  }}</td>
+                  <td>{{ element.priority }}</td>
+                  <td class="td-actions">
+                    <edit-icon @click="editTask(element.id)"/>
+                    <delete-icon @click="deleteTask(element.id)"/>
+                  </td>
+                </tr>
+              </template>
+            </draggable>
         </table>
         <h6 v-else class="text-center text-danger"><b>No Task available now</b></h6>
       </div>
@@ -36,12 +39,14 @@
 <script>
   import EditIcon from 'vue-material-design-icons/Pencil.vue';
   import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+  import Draggable from 'vuedraggable';
 
   import EditTask from './EditTask.vue';
   export default {
     components: {
       EditIcon,
-      DeleteIcon
+      DeleteIcon,
+      Draggable
     },
     data() {
       return {
@@ -57,6 +62,26 @@
         this.$store.commit('setTasks', tasks);
         this.tasks = tasks;
         this.isFetching = false;
+      },
+
+      async updateByPriority(evt) {
+        const taskId = evt.item._underlying_vm_.id;
+        const oldPriority = evt.oldIndex + 1;
+        const newPriority = evt.newIndex + 1;
+        const priorites = { 
+          oldPriority,
+          newPriority
+        };
+        const response = await this.$store.dispatch('updateTasksPrioritiesByDragAndDrop', {
+          'taskId': taskId, 
+          'prioritiesObject': priorites
+        });
+        const { message: successMessage } = response.data;
+        this.$swal({title: 'Success',text: successMessage, type: 'success'}).then(okay => {
+          if( okay) {
+            window.location.reload();
+          }
+        });
       },
 
       openModal(task) {
@@ -121,7 +146,7 @@
   }
   .table td.td-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 1.5rem;
     cursor: pointer;
   }
 </style>

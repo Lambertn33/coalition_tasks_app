@@ -41,6 +41,11 @@
       return $this->taskRepository->updateTaskByField($taskId, $updatedTask);
     }
 
+    public function updateTaskPriorityByDragAndDrop($taskId, $oldPriority, $newPriority)
+    {
+      return $this->taskRepository->updateTaskByDragAndDrop($taskId, $oldPriority, $newPriority);
+    }
+
     public function deleteTask($taskId)
     {
       return $this->taskRepository->deleteTask($taskId);

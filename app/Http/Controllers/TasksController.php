@@ -65,13 +65,28 @@ class TasksController extends Controller
         return (new ResponsesService)->renderResponse($this->response, 200);
     }
 
-    public function update(Request $request, $taskId)
+    public function updateByFields(Request $request, $taskId)
     {
         try {
             $data = $request->all();
             (new TasksService($this->taskRepository))->updateTaskByField($taskId, $data);
             $this->response['message'] = 'Task updated successfully';
             $this->response['task'] = (new TasksService($this->taskRepository))->showTask($taskId);
+            return (new ResponsesService)->renderResponse($this->response, 200);
+        } catch (\Throwable $th) {
+            $this->response['message'] = 'an error occured.. please try again';
+            return (new ResponsesService)->renderResponse($this->response, 500);
+        }
+    }
+
+    public function updatePrioritiesByDragAndDrop(Request $request, $taskId)
+    {
+        try {
+            $data = $request->all();
+            $oldPriority = $data['oldPriority'];
+            $newPriority = $data['newPriority'];
+            (new TasksService($this->taskRepository))->updateTaskPriorityByDragAndDrop($taskId, $oldPriority, $newPriority);
+            $this->response['message'] = 'Tasks priority updated successfully';
             return (new ResponsesService)->renderResponse($this->response, 200);
         } catch (\Throwable $th) {
             $this->response['message'] = 'an error occured.. please try again';

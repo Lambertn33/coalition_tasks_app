@@ -18,7 +18,15 @@ class TasksServices {
       name: updatedTask.name,
       project: updatedTask.project
     }
-    return axios.put(`${endpointUrl}/tasks/${taskId}`, updatedTaskObject);
+    return axios.put(`${endpointUrl}/tasks/${taskId}/updateByFields`, updatedTaskObject);
+  }
+
+  updateTasksPrioritiesByDragAndDrop(taskId, priorities) {
+    const prioritiesObject = {
+      oldPriority: priorities.oldPriority,
+      newPriority: priorities.newPriority
+    }
+    return axios.put(`${endpointUrl}/tasks/${taskId}/updatePrioritiesByDragAndDrop`, prioritiesObject);
   }
 
   deleteTask(taskId) {

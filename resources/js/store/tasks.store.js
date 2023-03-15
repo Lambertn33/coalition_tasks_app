@@ -49,6 +49,17 @@ export const tasksStore = {
         }
       )
     },
+
+    updateTasksPrioritiesByDragAndDrop({ commit }, { taskId, prioritiesObject }){
+      return tasksServices.updateTasksPrioritiesByDragAndDrop(taskId, prioritiesObject).then(
+        response => {
+          return Promise.resolve(response);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
+    },
     
     deleteTask({ commit }, taskId) {
       return tasksServices.deleteTask(taskId).then(
