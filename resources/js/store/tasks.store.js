@@ -77,5 +77,11 @@ export const tasksStore = {
     setTasks(state, tasks) {
       state.allTasks = tasks;
     }
+  },
+
+  getters: {
+    getTasks(state) {
+      return state.allTasks;
+    }
   }
 }

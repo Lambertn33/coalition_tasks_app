@@ -6,7 +6,18 @@
       <router-view />
       <div class="row">
         <h2 class="text-center py-4"><b>Tasks List</b></h2>
-        <span class="text-danger pb-4"><b>N.B: Drag Table columns to update task priority</b></span>
+        <div class="row table-filters">
+          <div class="col-md-6">
+            <span class="text-danger pb-4"><b>N.B: Drag Table columns to update task priority</b></span>
+          </div>
+          <div class="col-md-6">
+            <label for="">Filter by</label>
+            <select class="form-select" v-on:change="filterTasks($event)">
+            <option selected value="">All</option>
+            <option v-for="project in $store.getters.getProjects" :key="project.id" :value="project.id">{{ project.name }}</option>
+          </select>
+          </div>
+        </div>
         <table class="table table-striped" v-if="tasks.length">
           <thead>
             <tr>
@@ -62,6 +73,16 @@
         this.$store.commit('setTasks', tasks);
         this.tasks = tasks;
         this.isFetching = false;
+      },
+
+      filterTasks(e) {
+        if (e.target.value !== "") {
+          this.tasks = this.$store.getters.getTasks.filter((task) => {
+            return task.project_id == e.target.value
+          });
+        } else {
+          this.tasks = this.$store.getters.getTasks;
+        }
       },
 
       async updateByPriority(evt) {
@@ -148,5 +169,10 @@
     display: flex;
     gap: 1.5rem;
     cursor: pointer;
+  }
+  .table-filters {
+    display: flex;
+    align-items: center;
+    padding: 1.625rem;
   }
 </style>
