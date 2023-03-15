@@ -9,6 +9,10 @@ class TasksServices {
     return axios.get(`${endpointUrl}/tasks`);
   }
 
+  getTask(taskId) {
+    return axios.get(`${endpointUrl}/tasks/${taskId}`);
+  }
+
   deleteTask(taskId) {
     return axios.delete(`${endpointUrl}/tasks/${taskId}`);
   }

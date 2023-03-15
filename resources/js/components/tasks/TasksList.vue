@@ -21,7 +21,7 @@
               <td>{{task.project.name  }}</td>
               <td>{{ task.priority }}</td>
               <td class="td-actions">
-                <edit-icon />
+                <edit-icon @click="editTask(task.id)"/>
                 <delete-icon @click="deleteTask(task.id)"/>
               </td>
             </tr>
@@ -36,6 +36,8 @@
 <script>
   import EditIcon from 'vue-material-design-icons/Pencil.vue';
   import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+
+  import EditTask from './EditTask.vue';
   export default {
     components: {
       EditIcon,
@@ -55,6 +57,32 @@
         this.$store.commit('setTasks', tasks);
         this.tasks = tasks;
         this.isFetching = false;
+      },
+
+      openModal(task) {
+        this.$vbsModal
+          .open({
+            content: EditTask,
+            contentProps: {
+             task: task
+            },
+            contentEmits: {
+              onClose: this.closeModal
+            },
+            center: true,
+            backgroundScrolling: true,
+            staticBackdrop: true,
+          });
+      },
+
+      closeModal() {
+        this.$vbsModal.close();
+      },
+
+      async editTask(taskId) {
+        const response = await this.$store.dispatch('fetchSingleTask', taskId);
+        const { task } = await response;
+        this.openModal(task);
       },
 
       async deleteTask(taskId) {

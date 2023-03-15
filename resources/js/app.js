@@ -2,7 +2,9 @@ import './bootstrap';
 
 import { createApp } from 'vue';
 
-import VueSweetalert2 from 'vue-sweetalert2'
+import VueSweetalert2 from 'vue-sweetalert2';
+
+import Modal from "vue-bs-modal";
 
 import App from './components/App.vue';
 
@@ -22,6 +24,7 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+
 const app = createApp(App);
 
 app.component('the-navbar', TheNavbar);
@@ -35,5 +38,7 @@ app.use(router);
 app.use(store);
 
 app.use(VueSweetalert2);
+
+app.use(Modal);
 
 app.mount('#app');

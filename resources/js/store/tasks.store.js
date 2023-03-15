@@ -17,6 +17,17 @@ export const tasksStore = {
       );
     },
 
+    fetchSingleTask({ commit }, taskId) {
+      return tasksServices.getTask(taskId).then(
+        response => {
+          return Promise.resolve(response.data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+
     createNewTask({ commit }, newTask) {
       return tasksServices.createNewTask(newTask).then(
         response => {
