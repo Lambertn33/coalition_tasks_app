@@ -6,7 +6,7 @@
       <router-view />
       <div class="row">
         <h2 class="text-center py-4"><b>Tasks List</b></h2>
-        <div class="row table-filters">
+        <div class="row table-filters" v-if="tasks.length">
           <div class="col-md-9">
             <span class="text-danger pb-4"><b>N.B: Drag Table columns to update task priority</b></span>
           </div>
